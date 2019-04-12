@@ -1,0 +1,38 @@
+[urls.redis]
+scheme="redis"
+[urls.redis.defaults]
+port="6379"
+
+[urls.influx]
+scheme="https"
+contains=".influxcloud.net"
+[urls.influx.defaults]
+port="8086"
+
+[urls.postgres]
+scheme="postgres"
+
+[tools.redis-cli]
+nickname="cli"
+url="redis"
+
+format="redis-cli -h {{.Hostname}} -p {{.Port}}"
+
+[tools.influx-cli]
+nickname="cli"
+url="influx"
+
+format="influx -h {{.Hostname}} -p {{.Port}}"
+
+[tools.pgsql]
+nickname="cli"
+url="postgres"
+
+format="""
+PGHOST={{.Host}}
+PGUSER={{.Username}}
+{{if .HasPassword}}PGPASSWORD={{.Password}}
+{{end -}}
+PGDATABASE={{.CleanPath}}
+psql
+"""
